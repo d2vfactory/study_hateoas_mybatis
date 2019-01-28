@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.hateoasmybatis.repository.PurchaseRepository">
+
+    <select id="selectByChargeNo" resultType="purchase">
+        SELECT *
+          FROM TBI_PURCHASEMST
+         WHERE CHARGENO = #{chargeNo}
+    </select>
+
+
+    <select id="selectAllByUserId" resultType="purchase">
+        SELECT *
+          FROM TBI_PURCHASEMST
+          WHERE USERID=#{userId}
+          ORDER BY CHARGENO
+    </select>
+
+</mapper>

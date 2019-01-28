@@ -1,0 +1,51 @@
+package com.example.hateoasmybatis.repository;
+
+import com.example.hateoasmybatis.model.dto.Package;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
+
+@Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class PackageRepositoryTest {
+
+    @Autowired
+    private PackageRepository repository;
+
+    @Test
+    public void selectByProdId_1202142() {
+        int prodId = 1202142;
+        String prodName = "스텝 바이 스텝";
+
+        Package packageMst = repository.selectByProdId(prodId);
+
+        log.info("# package : {}", packageMst);
+
+        assertEquals(prodName, packageMst.getProdName());
+    }
+
+    @Test
+    public void selectAll_pageSize10(){
+        PageHelper.startPage(1,10);
+        List<Package> packages = repository.selectAll();
+
+        assertEquals(10, packages.size());
+
+        PageInfo<Package> pagePackage = new PageInfo<>(packages);
+
+        assertEquals(10, pagePackage.getPageSize());
+
+    }
+
+
+}
