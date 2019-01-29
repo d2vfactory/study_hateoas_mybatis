@@ -12,7 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -31,20 +32,18 @@ public class PackageRepositoryTest {
 
         log.info("# package : {}", packageMst);
 
-        assertEquals(prodName, packageMst.getProdName());
+        assertThat(packageMst.getProdName()).isEqualTo(prodName);
     }
 
     @Test
-    public void selectAll_pageSize10(){
-        PageHelper.startPage(1,10);
+    public void selectAll_pageSize10() {
+        PageHelper.startPage(1, 10);
         List<Package> packages = repository.selectAll();
 
-        assertEquals(10, packages.size());
-
+        assertThat(packages.size()).isEqualTo(10);
         PageInfo<Package> pagePackage = new PageInfo<>(packages);
 
-        assertEquals(10, pagePackage.getPageSize());
-
+        assertThat(pagePackage.getPageSize()).isEqualTo(10);
     }
 
 

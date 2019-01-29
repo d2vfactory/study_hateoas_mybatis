@@ -3,7 +3,6 @@ package com.example.hateoasmybatis.controller;
 
 import com.example.hateoasmybatis.model.assembler.ItemsAssembler;
 import com.example.hateoasmybatis.model.dto.Item;
-import com.example.hateoasmybatis.model.dto.Purchase;
 import com.example.hateoasmybatis.model.resource.ItemResource;
 import com.example.hateoasmybatis.repository.ItemRepository;
 import com.github.pagehelper.PageHelper;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.PagedResources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

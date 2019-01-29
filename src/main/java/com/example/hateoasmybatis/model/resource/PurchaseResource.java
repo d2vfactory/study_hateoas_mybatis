@@ -33,6 +33,9 @@ public class PurchaseResource extends ResourceSupport {
         }
          */
 
+        add(linkTo(methodOn(PurchaseController.class).getAllPurchases(null, null, purchase.getUserId()))
+                .withRel("purchases"));
+
         add(linkTo(methodOn(PurchaseController.class).getPurchase(purchase.getChargeNo()))
                 .withSelfRel());
     }

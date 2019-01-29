@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,6 +27,8 @@ public class PurchaseRepositoryTest {
         String chargeNo = "201901142869211";
         Purchase purchase = repository.selectByChargeNo(chargeNo);
         log.info("# purchase : {}", purchase);
+
+        assertThat(purchase.getChargeNo()).isEqualTo(chargeNo);
     }
 
     @Test
@@ -35,5 +39,8 @@ public class PurchaseRepositoryTest {
         log.info("purchase : {}", purchases.get(0));
         log.info("purchase size : {}", purchases.size());
 
+        assertThat(purchases.size()).isEqualTo(10);
+
     }
+
 }

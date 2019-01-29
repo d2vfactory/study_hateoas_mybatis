@@ -13,4 +13,6 @@ public interface PurchaseRepository {
     Purchase selectByChargeNo(String chargeNo);
 
     List<Purchase> selectAllByUserId(String userId);
+
+    List<Purchase> selectAll();
 }

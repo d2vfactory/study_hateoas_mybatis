@@ -29,19 +29,26 @@ public class PurchaseController {
     }
 
     @GetMapping(produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
-    public ResponseEntity<?> getAllPurchases(@RequestParam("userId") String userId,
-                                             Pageable pageable, PagedResourcesAssembler assembler) {
+    public ResponseEntity<?> getAllPurchases(Pageable pageable,
+                                             PagedResourcesAssembler<PurchaseResource> assembler,
+                                             @RequestParam(value = "userId", defaultValue = "") String userId) {
 
 
         // pagable => 시작 페이지 : 0 (hal 규격)
         // pageHelper => 시작 페이지 : 1
-        PageHelper.startPage(pageable.getPageNumber()+1, pageable.getPageSize());
+        PageHelper.startPage(pageable.getPageNumber() + 1, pageable.getPageSize());
 
-        List<Purchase> allByUserId = repository.selectAllByUserId(userId);
+        List<Purchase> list;
+        if(userId.isEmpty()) {
+            list = repository.selectAll();
+        } else {
+            list = repository.selectAllByUserId(userId);
+        }
 
-        PageInfo<Purchase> pageInfo = new PageInfo<>(allByUserId);
 
-        Page<Purchase> page = new PageImpl<>(allByUserId, pageable, pageInfo.getTotal());
+        PageInfo<Purchase> pageInfo = new PageInfo<>(list);
+
+        Page<Purchase> page = new PageImpl<>(list, pageable, pageInfo.getTotal());
 
         return ResponseEntity.ok(assembler.toResource(page.map(PurchaseResource::new)));
 
